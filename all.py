@@ -86,9 +86,9 @@ def getArcSign(tanX,tanY,centerX,centerY):
 #input
 road_name=raw_input("road name : ") or "route test"
 id_current=int(raw_input("current road id : ") or 1) 
-current_road_type=raw_input("current road type  (motoway(m);rural(r);town(t);low speed(l);pedestrian (p);bicycle(b);unknown(u) : ") or "m"
+current_road_type=raw_input("current road type  (motorway(m);rural(r);town(t);low speed(l);pedestrian (p);bicycle(b);unknown(u) : ") or "m"
 if current_road_type=="m" or current_road_type=="M":
-	current_road_type="motoway"
+	current_road_type="motorway"
 elif current_road_type=="t" or current_road_type=="T":
 	current_road_type="town"
 elif current_road_type=="l" or current_road_type=="L":
@@ -363,14 +363,14 @@ for i in range(laneNb):
 	elif center_lane_roadmark_weight=='b':
 		center_lane_roadmark_weight="bold"
 	else:
-		center_lane_roadmark_weight="stardard"
+		center_lane_roadmark_weight="standard"
 	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||type|%s|||"%(id_current,center_lane_roadmark_weight)	
 	center_lane_roadmark_color=raw_input("center lane roadmark color : (standard(s)/blue(b)/green(g)/red(r))") or "s"
 	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||material|%s|"%(id_current,center_lane_roadmark_color)	
-	center_lane_roadmark_material="stardard"
+	center_lane_roadmark_material="standard"
 	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||color|%s||"%(id_current,center_lane_roadmark_material)	
 	center_lane_roadmark_width=float(raw_input("center roadmark width : ") or 0.5)
-	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||width||%f||"%(id_current,center_lane_roadmark_width)
+	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||width|%f|||"%(id_current,center_lane_roadmark_width)
 	center_lane_roadmark_laneChange=raw_input("center roadmark lane change : (increase(i)/decrease(d)/both(b)/none(n))") or "n"
 	if center_lane_roadmark_laneChange=='i':
 		center_lane_roadmark_laneChange="increase"
@@ -382,7 +382,7 @@ for i in range(laneNb):
 		center_lane_roadmark_laneChange="none"
 	else:
 		center_lane_roadmark_laneChange="none"
-	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|%s||laneChange||"%(id_current,center_lane_roadmark_laneChange)
+	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||laneChange|%s|"%(id_current,center_lane_roadmark_laneChange)
 	center_lane_roadmark_height=float(raw_input("center roadmark height : ") or 0.5)
 	print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||height|%f|"%(id_current,center_lane_roadmark_height)
 
@@ -453,14 +453,14 @@ for i in range(laneNb):
 	elif right_lane_roadmark_weight=='b':
 		right_lane_roadmark_weight="bold"
 	else:
-		right_lane_roadmark_weight="stardard"
+		right_lane_roadmark_weight="standard"
 	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||type|%s|||"%(id_current,right_lane_roadmark_weight)	
 	right_lane_roadmark_color=raw_input("right lane roadmark color : (standard(s)/blue(b)/green(g)/red(r))") or "s"
 	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||material|%s|"%(id_current,right_lane_roadmark_color)	
-	right_lane_roadmark_material="stardard"
+	right_lane_roadmark_material="standard"
 	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||color|%s||"%(id_current,right_lane_roadmark_material)	
 	right_lane_roadmark_width=float(raw_input("right roadmark width : ") or 0.5)
-	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||width||%f||"%(id_current,right_lane_roadmark_width)
+	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||width|%f|||"%(id_current,right_lane_roadmark_width)
 	right_lane_roadmark_laneChange=raw_input("right roadmark lane change(increase(i)/(decrease(d)/both(b)/none(n))) : ") or "n"
 	if right_lane_roadmark_laneChange=='i':
 		right_lane_roadmark_laneChange="increase"
@@ -472,7 +472,7 @@ for i in range(laneNb):
 		right_lane_roadmark_laneChange="none"
 	else:
 		right_lane_roadmark_laneChange="none"
-	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|%s||laneChange||"%(id_current,right_lane_roadmark_laneChange)
+	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||laneChange|%s|"%(id_current,right_lane_roadmark_laneChange)
 	right_lane_roadmark_height=float(raw_input("right roadmark height : ") or 0.5)
 	print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||height|%f|"%(id_current,right_lane_roadmark_height)
 	#don't have roadmark type
