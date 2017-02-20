@@ -2,173 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy      import optimize
 from matplotlib.patches import Circle
-
-def getLeastSquare(list):
-	x=0
-	for i in list:
-		x=i**2+x
-	return np.sqrt(x)
-def getPolylineModel(x,y):
-	z_polyline = np.polyfit(x, y, 3)
-	p_polyline=np.poly1d(z_polyline)
-	gap_polyline=np.abs(y-p_polyline(x))
-	return z_polyline,p_polyline,gap_polyline
-def calc_R(xc, yc):
-	""" calculate the distance of each 2D points from the center (xc, yc) """
-	return np.sqrt((x-xc)**2 + (y-yc)**2)
-
-def f_2(c):
-    """ calculate the algebraic distance between the data points and the mean circle centered at c=(xc, yc) """
-    Ri = calc_R(*c)
-    return Ri - Ri.mean()
-def getCircleModel(x,y):
-	x_m = np.mean(x)
-	y_m = np.mean(y)
-	# calculation of the reduced coordinates
-	u = x - x_m
-	v = y - y_m
-	center_estimate = x_m, y_m
-	center_2, ier = optimize.leastsq(f_2, center_estimate)
-
-	xc_2, yc_2 = center_2
-	Ri_2       = calc_R(*center_2)
-	R_2        = Ri_2.mean()
-	residu_2   = sum((Ri_2 - R_2)**2)
-	parameters=[xc_2,yc_2,R_2]
-	gap=np.sqrt((x-xc_2)**2+(y-yc_2)**2)-R_2
-	return parameters,gap
-def getLineModel(x,y):
-	z_line = np.polyfit(x, y, 1)
-	p_line=np.poly1d(z_line)
-	gap_line=np.abs(y-p_line(x))
-	return z_line,p_line,gap_line
-def getOrientation(x,y):
-	orientation=0
-	if x>=0:
-	  	if y>=0:
-			rientation=np.arctan(y/x)
-		else:
-			orientation=2*np.pi-np.arctan(-y/x)
-	else :
-		if y>=0:
-			orientation=np.pi-np.arctan(-y/x)
-		else:
-			orientation=np.pi+np.arctan(y/x)
-
-	return orientation
-
-def rotateAndTranslate(x_list,y_list,angle=0,x0=0,y0=0):
-	x_t=[]
-	y_t=[]
-	if len(x_list)!=len(y_list):
-		print("Error:x_list has to have the same size of y_list")
-	else:
-		size=len(x_list)
-		for i in range(size):
-			x_t.append(x_list[i]*np.cos(angle)-y_list[i]*np.sin(angle)+x0)
-			y_t.append(x_list[i]*np.sin(angle)+y_list[i]*np.cos(angle)+y0)
-	return x_t,y_t
-def getArcSign(tanX,tanY,centerX,centerY):
-	oriTan=getOrientation(tanX,tanY)
-	oriCenter=getOrientation(centerX,centerY)
-	if oriTan-oriCenter>np.pi:
-		oriCenter=oriCenter+np.pi*2
-	if oriCenter-oriTan>np.pi:
-		oriTan=oriTan+np.pi*2
-	if oriTan>oriCenter:
-		return "-"
-	if oriTan<oriCenter:
-		return "+"
-
-def getInput(objectName,typeList=[],unit=""):
-	abbreviation=[]
-	title=""
-	if not unit=="":
-		unit="(%s)"%unit
-	if len(typeList)>0:
-		for i in range(len(typeList)):
-			if not typeList[i][0] in abbreviation:
-				abbreviation.append(typeList[i][0])
-			elif not typeList[i][0:2] in abbreviation:
-				abbreviation.append(typeList[i][0:2])
-			elif not typeList[i][0:3] in abbreviation:
-				abbreviation.append(typeList[i][0:3])
-			else:
-				bbreviation.append(typeList[i])
-			title+="%s--%s; "%(typeList[i],abbreviation[i])
-		out=raw_input("%s %s: \n(%s):"%(objectName,unit,title))
-		if out in abbreviation:
-			return typeList[abbreviation.index(out)]
-		else :
-			return getInput(objectName,typeList)
-	else:
-		out=raw_input("%s %s: "%(objectName,unit))
-		return out
-
+from syx import *
 
 #input
 road_name=getInput("road name")
 id_current=int(getInput("corrent road id")) 
-current_road_type=raw_input("current road type  (motorway(m);rural(r);town(t);low speed(l);pedestrian (p);bicycle(b);unknown(u) : ") or "m"
-if current_road_type=="m" or current_road_type=="M":
-	current_road_type="motorway"
-elif current_road_type=="t" or current_road_type=="T":
-	current_road_type="town"
-elif current_road_type=="l" or current_road_type=="L":
-	current_road_type="lowSpeed"
-elif current_road_type=="p" or current_road_type=="P":
-	current_road_type="pedestrian"
-elif current_road_type=="b" or current_road_type=="B":
-	current_road_type="bicycle"
-elif current_road_type=="u" or current_road_type=="U":
-	current_road_type="unknown"
-elif current_road_type=="r" or current_road_type=="R":
-	current_road_type="rural"
-else :
-	print("Error: you have to take a option!")
-try:
-	speed_max=float(raw_input("max speed (km/h) : ") or 50)/3.6
-except:
-	print("You have to enter a number!")
-pre_road_type=raw_input("predecessor road name (road(r),jonction(j)) : ") or "r"
-if pre_road_type=="r" or pre_road_type=="R":
-	pre_road_type="road"
-if pre_road_type=="j" or pre_road_type=="J":
-	pre_road_type="jonction"
-
-pre_road_id=int(raw_input("predecessor road id : ") or 2) 
-pre_road_contactPt=raw_input("predecessor road contact point (start(s),end(e)) :")
-if pre_road_contactPt=="s" or pre_road_contactPt=="S":
-	pre_road_contactPt="start"
-if pre_road_contactPt=="e" or pre_road_contactPt=="E":
-	pre_road_contactPt="end"
-
-successsor_road_type=raw_input("successsor road name (road(r),jonction(j)) : ") or "r"
-if successsor_road_type=="r" or pre_road_type=="R":
-	successsor_road_type="road"
-if successsor_road_type=="j" or pre_road_type=="J":
-	successsor_road_type="jonction"
-
-successsor_road_id=int(raw_input("successsor road id : ") or 3)
-successsor_road_contactPt=raw_input("successsor road contact point (start(s),end(e)) :") or "s"
-if successsor_road_contactPt=="s" or successsor_road_contactPt=="S":
-	successsor_road_contactPt="start"
-if successsor_road_contactPt=="e" or successsor_road_contactPt=="E":
-	successsor_road_contactPt="end"
-
-neighor_road_side=raw_input("neighor road side (left(l),right(r)) : ") or "l"
-if successsor_road_type=="l" or pre_road_type=="L":
-	successsor_road_type="left"
-if successsor_road_type=="r" or pre_road_type=="R":
-	successsor_road_type="right"
-
-neighor_road_id=int(raw_input("neighor road id : ") or 4)
-neighor_road_direction=raw_input("neighor road direction (same(s),opposite(o)) :") or "s"
-if successsor_road_contactPt=="s" or successsor_road_contactPt=="S":
-	successsor_road_contactPt="same"
-if successsor_road_contactPt=="o" or successsor_road_contactPt=="O":
-	successsor_road_contactPt="opposite"
-
+current_road_type=getInput("current road type",["motorway","rural","town","low" "speed","pedestrian","bicycle","unknown"])
+speed_max=float(getInput("max speed",unit="km/h"))/3.6
+pre_road_type=getInput("predecessor road type",typeList=["road","jonction"])
+pre_road_id=int(getInput("predecessor road id ")) 
+pre_road_contactPt=getInput("predecessor road contact point",typeList=["start","end"])
+successsor_road_type=getInput("successsor road name",typeList=["road","jonction"])
+successsor_road_id=int(getInput("successsor road id"))
+successsor_road_contactPt=getInput("successsor road contact point",typeList=["start","end"])
+neighor_road_side=getInput("neighor road side",typeList=["left","right"])
+neighor_road_id=int(getInput("neighor road id"))
+neighor_road_direction=getInput("neighor road direction",typeList=["same","opposite"]) 
 
 
 
@@ -200,8 +49,6 @@ print>>output_final,"%d|road|type|||||||type|%s||"%(id_current,current_road_type
 
 
 
-output=open("geometry.csv",'w+')
-print>>output,"Type;Parameters;x;y;length;s;hdg"
 pointX=[]
 pointY=[]
 tangentX=[]
