@@ -80,12 +80,35 @@ def getArcSign(tanX,tanY,centerX,centerY):
 	if oriTan<oriCenter:
 		return "+"
 
-
+def getInput(objectName,typeList=[],unit=""):
+	abbreviation=[]
+	title=""
+	if not unit=="":
+		unit="(%s)"%unit
+	if len(typeList)>0:
+		for i in range(len(typeList)):
+			if not typeList[i][0] in abbreviation:
+				abbreviation.append(typeList[i][0])
+			elif not typeList[i][0:2] in abbreviation:
+				abbreviation.append(typeList[i][0:2])
+			elif not typeList[i][0:3] in abbreviation:
+				abbreviation.append(typeList[i][0:3])
+			else:
+				bbreviation.append(typeList[i])
+			title+="%s--%s; "%(typeList[i],abbreviation[i])
+		out=raw_input("%s %s: \n(%s):"%(objectName,unit,title))
+		if out in abbreviation:
+			return typeList[abbreviation.index(out)]
+		else :
+			return getInput(objectName,typeList)
+	else:
+		out=raw_input("%s %s: "%(objectName,unit))
+		return out
 
 
 #input
-road_name=raw_input("road name : ") or "route test"
-id_current=int(raw_input("current road id : ") or 1) 
+road_name=getInput("road name")
+id_current=int(getInput("corrent road id")) 
 current_road_type=raw_input("current road type  (motorway(m);rural(r);town(t);low speed(l);pedestrian (p);bicycle(b);unknown(u) : ") or "m"
 if current_road_type=="m" or current_road_type=="M":
 	current_road_type="motorway"
