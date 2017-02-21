@@ -1,3 +1,10 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import optimize
+from matplotlib.patches import Circle
+
+m_x=[]
+m_y=[]
 def getLeastSquare(list):
 	x=0
 	for i in list:
@@ -10,13 +17,16 @@ def getPolylineModel(x,y):
 	return z_polyline,p_polyline,gap_polyline
 def calc_R(xc, yc):
 	""" calculate the distance of each 2D points from the center (xc, yc) """
-	return np.sqrt((x-xc)**2 + (y-yc)**2)
+	return np.sqrt((m_x-xc)**2 + (m_y-yc)**2)
 
 def f_2(c):
     """ calculate the algebraic distance between the data points and the mean circle centered at c=(xc, yc) """
     Ri = calc_R(*c)
     return Ri - Ri.mean()
 def getCircleModel(x,y):
+	global m_x,m_y
+	m_x=x
+	m_y=y
 	x_m = np.mean(x)
 	y_m = np.mean(y)
 	# calculation of the reduced coordinates
@@ -75,27 +85,135 @@ def getArcSign(tanX,tanY,centerX,centerY):
 	if oriTan<oriCenter:
 		return "+"
 
-def getInput(objectName,typeList=[],unit=""):
+def getInput(objectName,typeList=[],unit="",valueType="s"):
 	abbreviation=[]
 	title=""
-	if not unit=="":
-		unit="(%s)"%unit
-	if len(typeList)>0:
-		for i in range(len(typeList)):
-			if not typeList[i][0] in abbreviation:
-				abbreviation.append(typeList[i][0])
-			elif not typeList[i][0:2] in abbreviation:
-				abbreviation.append(typeList[i][0:2])
-			elif not typeList[i][0:3] in abbreviation:
-				abbreviation.append(typeList[i][0:3])
+	if valueType=="s":
+		if not unit=="":
+			unit="(%s)"%unit
+		if len(typeList)>0:
+			for i in range(len(typeList)):
+				if not typeList[i][0] in abbreviation:
+					abbreviation.append(typeList[i][0])
+				elif not typeList[i][0:2] in abbreviation:
+					abbreviation.append(typeList[i][0:2])
+				elif not typeList[i][0:3] in abbreviation:
+					abbreviation.append(typeList[i][0:3])
+				else:
+					abbreviation.append(typeList[i])
+				title+="%s--%s; "%(typeList[i],abbreviation[i])
+			out=raw_input("%s %s: \n(%s):"%(objectName,unit,title))
+			if out in abbreviation:
+				return typeList[abbreviation.index(out)]
+			else :
+				return getInput(objectName,typeList,unit,valueType)
+		else:
+			out=raw_input("%s %s: "%(objectName,unit))
+			return out
+	elif valueType=="i":
+		try:
+			if not unit=="":
+				unit="(%s)"%unit
+			if len(typeList)>0:
+				for i in range(len(typeList)):
+					if not typeList[i][0] in abbreviation:
+						abbreviation.append(typeList[i][0])
+					elif not typeList[i][0:2] in abbreviation:
+						abbreviation.append(typeList[i][0:2])
+					elif not typeList[i][0:3] in abbreviation:
+						abbreviation.append(typeList[i][0:3])
+					else:
+						abbreviation.append(typeList[i])
+					title+="%s--%s; "%(typeList[i],abbreviation[i])
+				out=int(raw_input("%s %s: \n(%s):"%(objectName,unit,title)))
+				if out in abbreviation:
+					return typeList[abbreviation.index(out)]
+				else :
+					return getInput(objectName,typeList)
 			else:
-				bbreviation.append(typeList[i])
-			title+="%s--%s; "%(typeList[i],abbreviation[i])
-		out=raw_input("%s %s: \n(%s):"%(objectName,unit,title))
-		if out in abbreviation:
-			return typeList[abbreviation.index(out)]
-		else :
-			return getInput(objectName,typeList)
+				out=int(raw_input("%s %s: "%(objectName,unit)))
+				print("out:",type(out))
+				return out
+		except ValueError:
+			print("you have to input integer!")
+			return getInput(objectName,typeList,unit,'i')
+	elif valueType=="f":
+		try:
+			if not unit=="":
+				unit="(%s)"%unit
+			if len(typeList)>0:
+				for i in range(len(typeList)):
+					if not typeList[i][0] in abbreviation:
+						abbreviation.append(typeList[i][0])
+					elif not typeList[i][0:2] in abbreviation:
+						abbreviation.append(typeList[i][0:2])
+					elif not typeList[i][0:3] in abbreviation:
+						abbreviation.append(typeList[i][0:3])
+					else:
+						abbreviation.append(typeList[i])
+					title+="%s--%s; "%(typeList[i],abbreviation[i])
+				out=float(raw_input("%s %s: \n(%s):"%(objectName,unit,title)))
+				if out in abbreviation:
+					return typeList[abbreviation.index(out)]
+				else :
+					return getInput(objectName,typeList)
+			else:
+				out=float(raw_input("%s %s: "%(objectName,unit)))
+				return out
+		except ValueError:
+			print("you have to input number!")
+			return getInput(objectName,typeList,unit,'f')
+
+def checkVariedLane(lineInfo):
+    isVaried=False
+    for i in range(len(lineInfo)):
+        if lineInfo[i][-1]=="variedlane":
+            isVaried=True
+    return isVaried
+def compareLaneSection(section1,section2,takeDistance=False):
+    sameSection=True
+    if takeDistance:
+        return section1==section2
+    else:
+        if len(section1)==len(section2):
+            for i in range(len(section1)):
+                if not section1[i][1:]==section2[i][1:]:
+                    sameSection=False
+            return sameSection
+        else:
+            return False
+
+def ReadList3L(filename):
+	with open(filename,'r') as file:
+		data=file.read()
+	start=0
+	size=data.count("[[")
+	allData=[]
+	for i in range(size):
+		start=data.find("[[",start)+1
+		end=data.find("]]",start)
+		temp=data[start+0:end+1]
+		temp=temp.split('], [')
+		temp_new=[]
+		for st in temp:
+			st=st.replace('[','')
+			st=st.replace(']','')
+			st=st.replace('\'','')
+			st=st.replace(' ','')
+			st=st.replace('\n','')
+			l=st.split(',')
+			temp_new.append(l)
+		allData.append(temp_new)
+	return allData
+def checkSingleSide(LineInfo):
+	hasLeft=False
+	hasRight=False
+	for info in LineInfo:
+		if info[1]=="right":
+			hasRight=True
+		if info[1]=="left":
+			hasLeft=True
+	if hasRight and hasLeft:
+		return False
 	else:
-		out=raw_input("%s %s: "%(objectName,unit))
-		return out
+		return True
