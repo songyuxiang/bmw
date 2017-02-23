@@ -171,15 +171,29 @@ def checkVariedLane(lineInfo):
             isVaried=True
     return isVaried
 def compareLaneSection(section1,section2,takeDistance=False):
-    sameSection=True
+    sameSection=[]
     if takeDistance:
-        return section1==section2
+        if len(section1)==len(section2):
+            for i in range(len(section1)):
+                for j in range(len(section2)):
+                    if section1[i]==section2[j]:
+                        sameSection.append(True)
+            if len(sameSection)==len(section1):
+                return True
+            else:
+                return False
+        else:
+            return False
     else:
         if len(section1)==len(section2):
             for i in range(len(section1)):
-                if not section1[i][1:]==section2[i][1:]:
-                    sameSection=False
-            return sameSection
+                for j in range(len(section2)):
+                    if section1[i][1:]==section2[j][1:]:
+                        sameSection.append(True)
+            if len(sameSection)==len(section1):
+                return True
+            else:
+                return False
         else:
             return False
 
