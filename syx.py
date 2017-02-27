@@ -261,3 +261,14 @@ def checkSingleSide(LineInfo):
 		return False
 	else:
 		return True
+def analyseSectionLanes(sectionInfo):
+	sizeLanes=len(sectionInfo[0])
+	sizeSections=len(sectionInfo)
+	sectionDistance=[]
+	for i in range(sizeLanes):
+		colInfo=[]
+		colInfo.append(sectionInfo[0][i])
+		for j in range(sizeSections):
+			colInfo.append(sectionInfo[j][i][0]) #0 est la distance
+		sectionDistance.append(colInfo)
+	return sectionDistance

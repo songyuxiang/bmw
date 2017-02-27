@@ -257,163 +257,163 @@ for i in range(laneSectionNb):
 	else:
 		lane_section_singleSide="false"
 	print>>output_final,"%d|road|lanes|laneSection||||||singleSide|%s|"%(id_current,lane_section_singleSide)
-	if not checkVariedLane(sectionLanesInfo[0]):
-		for lane in	sectionLanesInfo[0]:
-			if lane[1]=="center":
-				center_lane_id=0
-				center_lane_type=lane[5]
-				print>>output_final,"%d|road|lanes|laneSection|center|lane||||type|%s|"%(id_current,center_lane_type)	
-				print>>output_final,"%d|road|lanes|laneSection|center|lane||||id|%d|"%(id_current,center_lane_id)	
-				print>>output_final,"%d|road|lanes|laneSection|center|lane||||level|%s|"%(id_current,"true")	
-				#to add# center_lane_prodecessor_id=raw_input("center lane prodecessor id ",'i')
-				center_lane_prodecessor_id=0
-				print>>output_final,"%d|road|lanes|laneSection|center|lane|link|predecessor||id|%d|"%(id_current,center_lane_prodecessor_id)	
-				#to add# center_lane_successor_id=raw_input("Center lane successor id",'i')
-				center_lane_successor_id=0
-				print>>output_final,"%d|road|lanes|laneSection|center|lane|link|successor||id|%d|"%(id_current,center_lane_successor_id)	
-				#to add# center_lane_roadmark_offset=float(raw_input("center lane roadmark offset : ")or 0)
+	distantAllLanes=analyseSectionLanes(sectionLanesInfo)
+	for distantLane in distantAllLanes:
+		if distantLane[0]=="center":
+			center_lane_id=0
+			center_lane_type=lane[5]
+			print>>output_final,"%d|road|lanes|laneSection|center|lane||||type|%s|"%(id_current,center_lane_type)	
+			print>>output_final,"%d|road|lanes|laneSection|center|lane||||id|%d|"%(id_current,center_lane_id)	
+			print>>output_final,"%d|road|lanes|laneSection|center|lane||||level|%s|"%(id_current,"true")	
+			#to add# center_lane_prodecessor_id=raw_input("center lane prodecessor id ",'i')
+			center_lane_prodecessor_id=0
+			print>>output_final,"%d|road|lanes|laneSection|center|lane|link|predecessor||id|%d|"%(id_current,center_lane_prodecessor_id)	
+			#to add# center_lane_successor_id=raw_input("Center lane successor id",'i')
+			center_lane_successor_id=0
+			print>>output_final,"%d|road|lanes|laneSection|center|lane|link|successor||id|%d|"%(id_current,center_lane_successor_id)	
+			#to add# center_lane_roadmark_offset=float(raw_input("center lane roadmark offset : ")or 0)
+			
+
+			center_lane_roadmark_type=lane[3]
+			if center_lane_roadmark_type!="":
+				center_lane_roadmark_offset=0
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||sOffset|%f|"%(id_current,center_lane_roadmark_offset)	
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||type|%s|"%(id_current,center_lane_roadmark_type)	
+				center_lane_roadmark_weight=lane[4]
+
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||weight|%s|"%(id_current,center_lane_roadmark_weight)	
 				
+				 #to add#
+				center_lane_roadmark_color="standard"
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||color|%s|"%(id_current,center_lane_roadmark_color)	
+				center_lane_roadmark_material="standard"
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||material|%s|"%(id_current,center_lane_roadmark_material)	
 
-				center_lane_roadmark_type=lane[3]
-				if center_lane_roadmark_type!="":
-					center_lane_roadmark_offset=0
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||sOffset|%f|"%(id_current,center_lane_roadmark_offset)	
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||type|%s|"%(id_current,center_lane_roadmark_type)	
-					center_lane_roadmark_weight=lane[4]
-
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||weight|%s|"%(id_current,center_lane_roadmark_weight)	
-					
-					 #to add#
-					center_lane_roadmark_color="standard"
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||color|%s|"%(id_current,center_lane_roadmark_color)	
-					center_lane_roadmark_material="standard"
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||material|%s|"%(id_current,center_lane_roadmark_material)	
-		
-					center_lane_roadmark_width=float(lane[2])/1000
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||width|%f|"%(id_current,center_lane_roadmark_width)
-					center_lane_roadmark_laneChange="none"
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||laneChange|%s|"%(id_current,center_lane_roadmark_laneChange)
-					center_lane_roadmark_height=0
-					print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||height|%f|"%(id_current,center_lane_roadmark_height)
+				center_lane_roadmark_width=float(lane[2])/1000
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||width|%f|"%(id_current,center_lane_roadmark_width)
+				center_lane_roadmark_laneChange="none"
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||laneChange|%s|"%(id_current,center_lane_roadmark_laneChange)
+				center_lane_roadmark_height=0
+				print>>output_final,"%d|road|lanes|laneSection|center|lane|roadMark|||height|%f|"%(id_current,center_lane_roadmark_height)
 
 	#didn't use roadmark type name/width/line
 
 	####
 	#### right lane
-			if lane[1]=="right":
-				lane_id_right=lane_id_right-1
-				right_lane_type=lane[5]
-				right_lane_id=lane_id_right
-				print>>output_final,"%d|road|lanes|laneSection|right|lane||||type|%s|"%(id_current,right_lane_type)	
-				print>>output_final,"%d|road|lanes|laneSection|right|lane||||id|%d|"%(id_current,right_lane_id)	
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane||||level|%s|True = flat. Do not apply superelevation. False=apply crossfall and superelevation|"%(id_current,"true")	
-				right_lane_predecessor_id=right_lane_id
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|link|predecessor||id|%d|"%(id_current,right_lane_predecessor_id)	
-				right_lane_successor_id=right_lane_id
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|link|successor||id|%d|"%(id_current,right_lane_successor_id)	
-				right_lane_width_sOffset=0
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||sOffset|%f|"%(id_current,right_lane_width_sOffset)
-				right_lane_width_a=-float(lane[0])
-				right_lane_width_b=0
-				right_lane_width_c=0
-				right_lane_width_d=0
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||a|%f|"%(id_current,right_lane_width_a)
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||b|%f|"%(id_current,right_lane_width_b)
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||c|%f|"%(id_current,right_lane_width_c)
-				print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||d|%f|"%(id_current,right_lane_width_d)
-				# right_lane_border_sOffset=0
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||sOffset|%f|"%(id_current,right_lane_border_sOffset)
-				# #question:what's this
-				# right_lane_border_a=0
-				# right_lane_border_b=0
-				# right_lane_border_c=0
-				# right_lane_border_d=0
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||a|%f|"%(id_current,right_lane_border_a)
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||b|%f|"%(id_current,right_lane_border_b)
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||c|%f|"%(id_current,right_lane_border_c)
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||d|%f|"%(id_current,right_lane_border_d)
+		if distantLane[0]=="right":
+			lane_id_right=lane_id_right-1
+			right_lane_type=lane[5]
+			right_lane_id=lane_id_right
+			print>>output_final,"%d|road|lanes|laneSection|right|lane||||type|%s|"%(id_current,right_lane_type)	
+			print>>output_final,"%d|road|lanes|laneSection|right|lane||||id|%d|"%(id_current,right_lane_id)	
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane||||level|%s|True = flat. Do not apply superelevation. False=apply crossfall and superelevation|"%(id_current,"true")	
+			right_lane_predecessor_id=right_lane_id
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|link|predecessor||id|%d|"%(id_current,right_lane_predecessor_id)	
+			right_lane_successor_id=right_lane_id
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|link|successor||id|%d|"%(id_current,right_lane_successor_id)	
+			right_lane_width_sOffset=0
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||sOffset|%f|"%(id_current,right_lane_width_sOffset)
+			right_lane_width_a=-float(lane[0])
+			right_lane_width_b=0
+			right_lane_width_c=0
+			right_lane_width_d=0
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||a|%f|"%(id_current,right_lane_width_a)
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||b|%f|"%(id_current,right_lane_width_b)
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||c|%f|"%(id_current,right_lane_width_c)
+			print>>output_final,"%d|road|lanes|laneSection|right|lane|width|||d|%f|"%(id_current,right_lane_width_d)
+			# right_lane_border_sOffset=0
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||sOffset|%f|"%(id_current,right_lane_border_sOffset)
+			# #question:what's this
+			# right_lane_border_a=0
+			# right_lane_border_b=0
+			# right_lane_border_c=0
+			# right_lane_border_d=0
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||a|%f|"%(id_current,right_lane_border_a)
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||b|%f|"%(id_current,right_lane_border_b)
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||c|%f|"%(id_current,right_lane_border_c)
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||d|%f|"%(id_current,right_lane_border_d)
 
 
+			
+			# to add
+			right_lane_roadmark_type=lane[3]
+			if right_lane_roadmark_type!="":
+				right_lane_roadmark_offset=0
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||sOffset|%f|"%(id_current,right_lane_roadmark_offset)	
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||type|%s|"%(id_current,right_lane_roadmark_type)	
+				right_lane_roadmark_weight=lane[4]
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||weight|%s|"%(id_current,right_lane_roadmark_weight)	
 				
-				# to add
-				right_lane_roadmark_type=lane[3]
-				if right_lane_roadmark_type!="":
-					right_lane_roadmark_offset=0
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||sOffset|%f|"%(id_current,right_lane_roadmark_offset)	
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||type|%s|"%(id_current,right_lane_roadmark_type)	
-					right_lane_roadmark_weight=lane[4]
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||weight|%s|"%(id_current,right_lane_roadmark_weight)	
-					
-					right_lane_roadmark_color="standard"
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||color|%s|"%(id_current,right_lane_roadmark_color)	
-					right_lane_roadmark_material="standard"
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||material|%s|"%(id_current,right_lane_roadmark_material)	
-					right_lane_roadmark_width=float(lane[2])/1000
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||width|%f|"%(id_current,right_lane_roadmark_width)
-					right_lane_roadmark_laneChange="none"
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||laneChange|%s|"%(id_current,right_lane_roadmark_laneChange)
-					
-					right_lane_roadmark_height=0
-					print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||height|%f|"%(id_current,right_lane_roadmark_height)
+				right_lane_roadmark_color="standard"
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||color|%s|"%(id_current,right_lane_roadmark_color)	
+				right_lane_roadmark_material="standard"
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||material|%s|"%(id_current,right_lane_roadmark_material)	
+				right_lane_roadmark_width=float(lane[2])/1000
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||width|%f|"%(id_current,right_lane_roadmark_width)
+				right_lane_roadmark_laneChange="none"
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||laneChange|%s|"%(id_current,right_lane_roadmark_laneChange)
+				
+				right_lane_roadmark_height=0
+				print>>output_final,"%d|road|lanes|laneSection|right|lane|roadMark|||height|%f|"%(id_current,right_lane_roadmark_height)
+			#don't have roadmark type
+			#don't have material/visibility/speed/access/height/rule
+		if distantLane[0]=="left":
+			lane_id_left=lane_id_left+1
+			left_lane_type=lane[5]
+			left_lane_id=lane_id_left
+			print>>output_final,"%d|road|lanes|laneSection|left|lane||||type|%s|"%(id_current,left_lane_type)	
+			print>>output_final,"%d|road|lanes|laneSection|left|lane||||id|%d|"%(id_current,left_lane_id)	
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane||||level|%s|True = flat. Do not apply superelevation. False=apply crossfall and superelevation|"%(id_current,"true")	
+			left_lane_predecessor_id=left_lane_id
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|link|predecessor||id|%d|"%(id_current,left_lane_predecessor_id)	
+			left_lane_successor_id=left_lane_id
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|link|successor||id|%d|"%(id_current,left_lane_successor_id)	
+			left_lane_width_sOffset=0
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||sOffset|%f|"%(id_current,left_lane_width_sOffset)
+			left_lane_width_a=float(lane[0])
+			left_lane_width_b=0
+			left_lane_width_c=0
+			left_lane_width_d=0
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||a|%f|"%(id_current,left_lane_width_a)
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||b|%f|"%(id_current,left_lane_width_b)
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||c|%f|"%(id_current,left_lane_width_c)
+			print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||d|%f|"%(id_current,left_lane_width_d)
+			# right_lane_border_sOffset=0
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||sOffset|%f|"%(id_current,right_lane_border_sOffset)
+			# #question:what's this
+			# right_lane_border_a=0
+			# right_lane_border_b=0
+			# right_lane_border_c=0
+			# right_lane_border_d=0
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||a|%f|"%(id_current,right_lane_border_a)
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||b|%f|"%(id_current,right_lane_border_b)
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||c|%f|"%(id_current,right_lane_border_c)
+			# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||d|%f|"%(id_current,right_lane_border_d)
+
+
+			
+			# to add
+			left_lane_roadmark_type=lane[3]
+			if left_lane_roadmark_type!="":
+				left_lane_roadmark_offset=0
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||sOffset|%f|"%(id_current,left_lane_roadmark_offset)	
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||type|%s|"%(id_current,left_lane_roadmark_type)	
+				left_lane_roadmark_weight=lane[4]
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||weight|%s|"%(id_current,left_lane_roadmark_weight)	
+				
+				left_lane_roadmark_color="standard"
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||color|%s|"%(id_current,left_lane_roadmark_color)	
+				left_lane_roadmark_material="standard"
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||material|%s|"%(id_current,left_lane_roadmark_material)	
+				left_lane_roadmark_width=float(lane[2])/1000
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||width|%f|"%(id_current,left_lane_roadmark_width)
+				left_lane_roadmark_laneChange="none"
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||laneChange|%s|"%(id_current,left_lane_roadmark_laneChange)
+				
+				left_lane_roadmark_height=0
+				print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||height|%f|"%(id_current,left_lane_roadmark_height)
 				#don't have roadmark type
 				#don't have material/visibility/speed/access/height/rule
-			if lane[1]=="left":
-				lane_id_left=lane_id_left+1
-				left_lane_type=lane[5]
-				left_lane_id=lane_id_left
-				print>>output_final,"%d|road|lanes|laneSection|left|lane||||type|%s|"%(id_current,left_lane_type)	
-				print>>output_final,"%d|road|lanes|laneSection|left|lane||||id|%d|"%(id_current,left_lane_id)	
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane||||level|%s|True = flat. Do not apply superelevation. False=apply crossfall and superelevation|"%(id_current,"true")	
-				left_lane_predecessor_id=left_lane_id
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|link|predecessor||id|%d|"%(id_current,left_lane_predecessor_id)	
-				left_lane_successor_id=left_lane_id
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|link|successor||id|%d|"%(id_current,left_lane_successor_id)	
-				left_lane_width_sOffset=0
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||sOffset|%f|"%(id_current,left_lane_width_sOffset)
-				left_lane_width_a=float(lane[0])
-				left_lane_width_b=0
-				left_lane_width_c=0
-				left_lane_width_d=0
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||a|%f|"%(id_current,left_lane_width_a)
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||b|%f|"%(id_current,left_lane_width_b)
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||c|%f|"%(id_current,left_lane_width_c)
-				print>>output_final,"%d|road|lanes|laneSection|left|lane|width|||d|%f|"%(id_current,left_lane_width_d)
-				# right_lane_border_sOffset=0
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||sOffset|%f|"%(id_current,right_lane_border_sOffset)
-				# #question:what's this
-				# right_lane_border_a=0
-				# right_lane_border_b=0
-				# right_lane_border_c=0
-				# right_lane_border_d=0
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||a|%f|"%(id_current,right_lane_border_a)
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||b|%f|"%(id_current,right_lane_border_b)
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||c|%f|"%(id_current,right_lane_border_c)
-				# print>>output_final,"%d|road|lanes|laneSection|right|lane|border|||d|%f|"%(id_current,right_lane_border_d)
-
-
-				
-				# to add
-				left_lane_roadmark_type=lane[3]
-				if left_lane_roadmark_type!="":
-					left_lane_roadmark_offset=0
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||sOffset|%f|"%(id_current,left_lane_roadmark_offset)	
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||type|%s|"%(id_current,left_lane_roadmark_type)	
-					left_lane_roadmark_weight=lane[4]
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||weight|%s|"%(id_current,left_lane_roadmark_weight)	
-					
-					left_lane_roadmark_color="standard"
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||color|%s|"%(id_current,left_lane_roadmark_color)	
-					left_lane_roadmark_material="standard"
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||material|%s|"%(id_current,left_lane_roadmark_material)	
-					left_lane_roadmark_width=float(lane[2])/1000
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||width|%f|"%(id_current,left_lane_roadmark_width)
-					left_lane_roadmark_laneChange="none"
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||laneChange|%s|"%(id_current,left_lane_roadmark_laneChange)
-					
-					left_lane_roadmark_height=0
-					print>>output_final,"%d|road|lanes|laneSection|left|lane|roadMark|||height|%f|"%(id_current,left_lane_roadmark_height)
-					#don't have roadmark type
-					#don't have material/visibility/speed/access/height/rule
 
 	# else:
 	# 	size=len(X)
