@@ -5,16 +5,32 @@ from matplotlib.patches import Circle
 
 m_x=[]
 m_y=[]
+def modifyListElement(list,index,value):
+	list[index]=value
+	return list
 def getLeastSquare(list):
 	x=0
 	for i in list:
 		x=i**2+x
 	return np.sqrt(x)
+def f_polyline(x, *p):
+    return np.poly1d(p)(x)
+def f_arc(x, r, a,b):
+	y=[]
+	for i in x:
+		j=np.sqrt(np.abs(r**2-(i-a)**2))+b
+		y.append(j)
+	return y
+def f_line(x,*p):
+	return np.poly1d(p)(x)
 def getPolylineModel(x,y):
-	z_polyline = np.polyfit(x, y, 3)
-	p_polyline=np.poly1d(z_polyline)
-	gap_polyline=np.abs(y-p_polyline(x))
-	return z_polyline,p_polyline,gap_polyline
+	sigma =np.ones(len(x))
+	sigma[[0, -1]] = 0.00001
+	p_polyline, pcov = optimize.curve_fit(f_polyline, x, y, (0, 0, 0, 0), sigma=sigma)
+	# z_polyline = np.polyfit(x, y, 3)
+	# p_polyline=np.poly1d(z_polyline)
+	gap_polyline=np.abs(y-f_polyline(x, *p_polyline))
+	return p_polyline,gap_polyline
 def calc_R(xc, yc):
 	""" calculate the distance of each 2D points from the center (xc, yc) """
 	return np.sqrt((m_x-xc)**2 + (m_y-yc)**2)
@@ -24,29 +40,43 @@ def f_2(c):
     Ri = calc_R(*c)
     return Ri - Ri.mean()
 def getCircleModel(x,y):
-	global m_x,m_y
-	m_x=x
-	m_y=y
-	x_m = np.mean(x)
-	y_m = np.mean(y)
-	# calculation of the reduced coordinates
-	u = x - x_m
-	v = y - y_m
-	center_estimate = x_m, y_m
-	center_2, ier = optimize.leastsq(f_2, center_estimate)
+	sigma =np.ones(len(x))
+	sigma[[0, -1]] = 0.00001
+	gap=[]
+	p1, _ = optimize.curve_fit(f_arc, x, y, (0,0,0), sigma=sigma)
+	y0=f_arc(x,*p1)
+	for i in range(len(x)):
+		g=y[i]-y0[i]
+		gap.append(g)
+	if p1[0]<0:
+		p1[0]=-p1[0]
+	# global m_x,m_y
+	# m_x=x
+	# m_y=y
+	# x_m = np.mean(x)
+	# y_m = np.mean(y)
+	# # calculation of the reduced coordinates
+	# u = x - x_m
+	# v = y - y_m
+	# center_estimate = x_m, y_m
+	# center_2, ier = optimize.leastsq(f_2, center_estimate)
 
-	xc_2, yc_2 = center_2
-	Ri_2       = calc_R(*center_2)
-	R_2        = Ri_2.mean()
-	residu_2   = sum((Ri_2 - R_2)**2)
-	parameters=[xc_2,yc_2,R_2]
-	gap=np.sqrt((x-xc_2)**2+(y-yc_2)**2)-R_2
-	return parameters,gap
+	# xc_2, yc_2 = center_2
+	# Ri_2       = calc_R(*center_2)
+	# R_2        = Ri_2.mean()
+	# residu_2   = sum((Ri_2 - R_2)**2)
+	# parameters=[xc_2,yc_2,R_2]
+	# gap=np.sqrt((x-xc_2)**2+(y-yc_2)**2)-R_2
+	return p1,gap
 def getLineModel(x,y):
-	z_line = np.polyfit(x, y, 1)
-	p_line=np.poly1d(z_line)
-	gap_line=np.abs(y-p_line(x))
-	return z_line,p_line,gap_line
+	# sigma =np.ones(len(x))
+	# sigma[[0, -1]] = 0.00001
+	# p_line, pcov = optimize.curve_fit(f_line, x, y, (0), sigma=sigma)
+	z_polyline = np.polyfit(x, y, 1)
+	p_polyline=np.poly1d(z_polyline)
+	# gap_line=np.abs(y-f_line(x, *p_line))
+	gap_line=np.abs(p_polyline(x)-y)
+	return p_polyline,gap_line
 def getOrientation(x,y):
 	orientation=0
 	if x>=0:
