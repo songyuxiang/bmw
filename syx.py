@@ -267,8 +267,18 @@ def analyseSectionLanes(sectionInfo):
 	sectionDistance=[]
 	for i in range(sizeLanes):
 		colInfo=[]
-		colInfo.append(sectionInfo[0][i])
+		colInfo.append(sectionInfo[0][i][1])
 		for j in range(sizeSections):
 			colInfo.append(sectionInfo[j][i][0]) #0 est la distance
 		sectionDistance.append(colInfo)
 	return sectionDistance
+def getSectionGeometry(distantceList,distanceGap=0.1,tolerace=0.02):
+	y=[]
+	for d in distantceList:
+		y.append(float(d))
+	x=np.linspace(0,(len(distantceList)-1)*distanceGap,len(distantceList))
+	p_polyline,gap_polyline=getPolylineModel(x,y)
+	gap=np.max(gap_polyline)
+	d,c,b,a=p_polyline
+	s=(len(distantceList)-1)*distanceGap
+	return a,b,c,d,s,gap
