@@ -1,0 +1,152 @@
+<?xml version="1.0" ?>
+<OpenDRIVE>
+  <header date="2017-02-05T14:00:00" east="700368.657" name="geosatodr1.4" north="4972977.373" revMajor="1" revMinor="4" south="4972898.543" vendor="GEOSAT" version="1.00" west="700277.226">
+    <geoReference>&lt;[CDATA[+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs]]&gt;</geoReference>
+  </header>
+  <road id="2" junction="-1" length="17.000000" name="road2">
+    <link>
+      <predecessor contactPoint="start" elementId="-1" elementType="road"/>
+      <successor contactPoint="end" elementId="1" elementType="junction"/>
+      <neighbor/>
+    </link>
+    <type s="0.000000" type="town">
+      <speed max="13" unit="m/s"/>
+    </type>
+    <planView>
+      <geometry hdg="0.000000" length="17.000000" s="0.000000" x="700284.090750" y="4972912.431750">
+        <poly3 a="0.000000" b="0.000000" c="-0.006714" d="0.000148"/>
+      </geometry>
+    </planView>
+    <elevationProfile>
+      <elevation a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00" s="0.0000000000000000e+00"/>
+    </elevationProfile>
+    <lateralProfile>
+      <superelevation a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00" s="0.0000000000000000e+00"/>
+    </lateralProfile>
+    <lanes>
+      <laneOffset/>
+      <laneSection s="0.000000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="3.724002" b="-0.019591" c="0.001433" d="-0.000036" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="3.285438" b="0.016411" c="-0.001660" d="0.000067" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="broken" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+          <lane id="-2" level="true" type="driving">
+            <link>
+              <predecessor id="-2"/>
+              <successor id="-2"/>
+            </link>
+            <width a="3.656511" b="0.011782" c="-0.001331" d="0.000040" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+      <laneSection s="13.400000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="3.631820" b="0.002729" c="0.003222" d="-0.001195" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="3.368632" b="-0.003905" c="0.005683" d="-0.000829" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="broken" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+          <lane id="-2" level="true" type="driving">
+            <link>
+              <predecessor id="-2"/>
+              <successor id="-2"/>
+            </link>
+            <width a="3.670491" b="0.008359" c="-0.007206" d="0.001023" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+    <objects>
+      <object/>
+    </objects>
+    <signals>
+      <signal>
+        <validity/>
+        <dependency/>
+      </signal>
+      <signalReference>
+        <validity/>
+      </signalReference>
+    </signals>
+  </road>
+</OpenDRIVE>

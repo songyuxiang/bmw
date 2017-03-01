@@ -1,0 +1,257 @@
+<?xml version="1.0" ?>
+<OpenDRIVE>
+  <header date="2017-02-05T14:00:00" east="700368.657" name="geosatodr1.4" north="4972977.373" revMajor="1" revMinor="4" south="4972898.543" vendor="GEOSAT" version="1.00" west="700277.226">
+    <geoReference>&lt;[CDATA[+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs]]&gt;</geoReference>
+  </header>
+  <road id="1" junction="-1" length="26.800000" name="road1">
+    <link>
+      <predecessor contactPoint="start" elementId="-1" elementType="road"/>
+      <successor contactPoint="end" elementId="1" elementType="junction"/>
+      <neighbor/>
+    </link>
+    <type s="0.000000" type="town">
+      <speed max="13" unit="m/s"/>
+    </type>
+    <planView>
+      <geometry hdg="2.301208" length="26.800000" s="0.000000" x="700303.353750" y="4972951.471250">
+        <poly3 a="0.000000" b="0.000000" c="0.002036" d="0.000170"/>
+      </geometry>
+    </planView>
+    <elevationProfile>
+      <elevation a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00" s="0.0000000000000000e+00"/>
+    </elevationProfile>
+    <lateralProfile>
+      <superelevation a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00" s="0.0000000000000000e+00"/>
+    </lateralProfile>
+    <lanes>
+      <laneOffset/>
+      <laneSection s="0.000000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="3.474553" b="-0.073988" c="0.004529" d="0.000038" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="3.441409" b="-0.172885" c="0.020895" d="-0.000556" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+      <laneSection s="5.500000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="3.210930" b="-0.039793" c="0.002257" d="-0.000004" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="3.030172" b="-0.000730" c="0.000129" d="-0.000053" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+      <laneSection s="16.600000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="2.965303" b="0.007987" c="-0.001807" d="0.000049" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="3.042260" b="-0.013901" c="-0.001567" d="0.000343" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+      <laneSection s="23.800000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="2.947503" b="-0.006346" c="0.010469" d="-0.003536" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="2.988925" b="0.061475" c="0.112979" d="-0.014460" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+      <laneSection s="26.300000" singleSide="false">
+        <left>
+          <lane id="1" level="true" type="driving">
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+            <width a="2.941821" b="-0.016821" c="-0.000001" d="0.000001" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" level="true" type="driving">
+            <link>
+              <predecessor id="0"/>
+              <successor id="0"/>
+            </link>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" level="true" type="driving">
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+            <width a="3.622797" b="0.607609" c="0.095035" d="-0.099405" sOffset="0.000000"/>
+            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
+              <type>
+                <line/>
+              </type>
+            </roadMark>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+    <objects>
+      <object/>
+    </objects>
+    <signals>
+      <signal>
+        <validity/>
+        <dependency/>
+      </signal>
+      <signalReference>
+        <validity/>
+      </signalReference>
+    </signals>
+  </road>
+</OpenDRIVE>

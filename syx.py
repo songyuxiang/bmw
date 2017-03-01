@@ -78,10 +78,12 @@ def getLineModel(x,y):
 	gap_line=np.abs(p_polyline(x)-y)
 	return p_polyline,gap_line
 def getOrientation(x,y):
+	print(x,y)
 	orientation=0
+
 	if x>=0:
 	  	if y>=0:
-			rientation=np.arctan(y/x)
+			orientation=np.arctan(y/x)
 		else:
 			orientation=2*np.pi-np.arctan(-y/x)
 	else :
@@ -264,12 +266,17 @@ def checkSingleSide(LineInfo):
 def analyseSectionLanes(sectionInfo):
 	sizeLanes=len(sectionInfo[0])
 	sizeSections=len(sectionInfo)
+	
 	sectionDistance=[]
 	for i in range(sizeLanes):
 		colInfo=[]
 		colInfo.append(sectionInfo[0][i][1])
 		for j in range(sizeSections):
-			colInfo.append(sectionInfo[j][i][0]) #0 est la distance
+			
+			try:
+				colInfo.append(sectionInfo[j][i][0]) #0 est la distance
+			except IndexError:
+				print("analyseSectionLanes out of index")
 		sectionDistance.append(colInfo)
 	return sectionDistance
 def getSectionGeometry(distantceList,distanceGap=0.1,tolerace=0.02):
