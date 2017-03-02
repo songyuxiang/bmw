@@ -308,6 +308,17 @@ def post_fill_elevationProfile(OpenDRIVE):
         RoadElement.insert(4, new_she)
     return OpenDRIVE
 
+
+def post_fill_geometry_line(OpenDRIVE):
+    for RoadElement in OpenDRIVE.findall('./road[@id]'):
+        sh_ln = RoadElement.find('planView')
+	for sh_geom in sh_ln.findall('geometry'):
+            if (sh_geom is not None and len(sh_geom.getchildren())==0 and
+		len(sh_geom.attrib) == 5):
+            	sh_ln = SubElement(sh_geom,"line")
+    return OpenDRIVE
+
+
 #def convert_double(data):
     #dbl_vars = ['s', 'x', 'y', 't', 'hdg', 'length', 'curvEnd', 'curvStart', 'a', 'b', 'c', 'd', 'curvature',
     #            'aV', 'bV', 'cV', 'dV', ]

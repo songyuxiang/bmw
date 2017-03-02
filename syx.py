@@ -26,7 +26,10 @@ def f_line(x,*p):
 def getPolylineModel(x,y):
 	sigma =np.ones(len(x))
 	sigma[[0, -1]] = 0.00001
-	p_polyline, pcov = optimize.curve_fit(f_polyline, x, y, (0, 0, 0, 0), sigma=sigma)
+	try:
+		p_polyline, pcov = optimize.curve_fit(f_polyline, x, y, (0, 0, 0, 0), sigma=sigma)
+	except TypeError:
+		print(x,y)
 	# z_polyline = np.polyfit(x, y, 3)
 	# p_polyline=np.poly1d(z_polyline)
 	gap_polyline=np.abs(y-f_polyline(x, *p_polyline))
@@ -78,8 +81,7 @@ def getLineModel(x,y):
 	gap_line=np.abs(p_polyline(x)-y)
 	return p_polyline,gap_line
 def getOrientation(x,y):
-	print(x,y)
-	orientation=0
+	orientation=10000
 
 	if x>=0:
 	  	if y>=0:
@@ -91,10 +93,32 @@ def getOrientation(x,y):
 			orientation=np.pi-np.arctan(-y/x)
 		else:
 			orientation=np.pi+np.arctan(y/x)
-
+	if orientation==10000:
+		print("error of orientation")
+		return orientation
 	return orientation
 
+def mult(matrix1,matrix2):
+    # Matrix multiplication
+    if len(matrix1[0]) != len(matrix2):
+        # Check matrix dimensions
+        print 'Matrices must be m*n and n*p to multiply!'
+    else:
+        # Multiply if correct dimensions
+        new_matrix = zero(len(matrix1),len(matrix2[0]))
+        for i in range(len(matrix1)):
+            for j in range(len(matrix2[0])):
+                for k in range(len(matrix2)):
+                    new_matrix[i][j] += matrix1[i][k]*matrix2[k][j]
+        return new_matrix
+
 def rotateAndTranslate(x_list,y_list,angle=0,x0=0,y0=0):
+	# TranMatrix = zero(3,3)
+	# TranMatrix[0][0]=1
+	# TranMatrix[0][2]=-x0
+	# TranMatrix[1][1]=1
+	# TranMatrix[1][2]=-y0
+	# TranMatrix[2][2]=1
 	x_t=[]
 	y_t=[]
 	if len(x_list)!=len(y_list):
@@ -102,8 +126,12 @@ def rotateAndTranslate(x_list,y_list,angle=0,x0=0,y0=0):
 	else:
 		size=len(x_list)
 		for i in range(size):
-			x_t.append(x_list[i]*np.cos(angle)-y_list[i]*np.sin(angle)+x0)
-			y_t.append(x_list[i]*np.sin(angle)+y_list[i]*np.cos(angle)+y0)
+			x1=(x_list[i]-x0)*np.cos(angle)-(y_list[i]-y0)*np.sin(angle)
+			y1=(x_list[i]-x0)*np.sin(angle)+(y_list[i]-y0)*np.cos(angle)
+			x_t.append(x1)
+			y_t.append(y1)
+			# x_t.append(x_list[i]*np.cos(angle)-y_list[i]*np.sin(angle)+x0*(1-np.cos(angle)+y0*np.sin(angle)))
+			# y_t.append(x_list[i]*np.sin(angle)+y_list[i]*np.cos(angle)-y0*(1-np.cos(angle)-x0*np.sin(angle)))
 	return x_t,y_t
 def getArcSign(tanX,tanY,centerX,centerY):
 	oriTan=getOrientation(tanX,tanY)

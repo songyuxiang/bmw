@@ -102,8 +102,9 @@ firstPtX=pointX[0]
 firstPtY=pointY[0]
 while start<size:
 	if(len(pointX[start:end])>1):
+		hdg=getOrientation(pointX[start+1]-pointX[start],pointY[start+1]-pointY[start])
 		# x,y=rotateAndTranslate(modifyListElement(pointX[start:end],0,firstPtX),modifyListElement(pointY[start:end],0,firstPtY),0,-pointX[start],-pointY[start])
-		x,y=rotateAndTranslate(pointX[start:end],pointY[start:end],0,-pointX[start],-pointY[start])
+		x,y=rotateAndTranslate(pointX[start:end],pointY[start:end],-hdg,pointX[start],pointY[start])
 		#y=pointY[start:end]
 		
 		#test with polyline model
@@ -120,68 +121,67 @@ while start<size:
 
 		##Use polyline model
 		# if max(gap_polyline)<max(gap_circle) and max(gap_polyline)<max(gap_line):
-		if max(gap_polyline)<max(gap_line):
-			print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
-			
-			polylinePointX.extend(x)
-			polylinePointY.extend(y)
-			polylineLength=(len(x)-1)*lengthUnit
-			cumulateLength=cumulateLength+polylineLength
-			# hdg=getOrientation(tangentX[start],tangentY[start])
-			hdg=getOrientation(pointX[start+1]-pointX[start],pointY[start+1]-pointY[start])
-			# print(pointX[start],start)
-			# print(hdg)
-			# testX=np.array(x)
-			# testY=testX**3*para_polyline[0]+testX**2*para_polyline[1]
-			# plt.plot(testX,testY,'-')
-			#plt.show()
-			print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
-			print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
-			print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
-			print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
-			print>>output_final,"%s|road|planView|geometry|poly3|||||a|%f|"%(id_current,0)
-			print>>output_final,"%s|road|planView|geometry|poly3|||||b|%f|"%(id_current,0)
-			print>>output_final,"%s|road|planView|geometry|poly3|||||c|%f|"%(id_current,para_polyline[1])
-			print>>output_final,"%s|road|planView|geometry|poly3|||||d|%f|"%(id_current,para_polyline[0])
-			# firstPtX=x[-1]
-			# firstPtY=f_polyline(firstPtX, *para_polyline)
-			start=end-1
-			end=start+pointsNb
-			if(start+4>size):
-				break
-			else:
-				if(end>size):
-					end=size
+		# if max(gap_polyline)<max(gap_line):
+		print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
+		polylinePointX.extend(x)
+		polylinePointY.extend(y)
+		polylineLength=(len(x)-1)*lengthUnit
+		cumulateLength=cumulateLength+polylineLength
+		# hdg=getOrientation(tangentX[start],tangentY[start])
+		
+		# print(pointX[start],start)
+		# print(hdg)
+		# testX=np.array(x)
+		# testY=testX**3*para_polyline[0]+testX**2*para_polyline[1]
+		# plt.plot(testX,testY,'-')
+		#plt.show()
+		print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
+		print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
+		print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
+		print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
+		print>>output_final,"%s|road|planView|geometry|poly3|||||a|%f|"%(id_current,0)
+		print>>output_final,"%s|road|planView|geometry|poly3|||||b|%f|"%(id_current,0)
+		print>>output_final,"%s|road|planView|geometry|poly3|||||c|%f|"%(id_current,para_polyline[1])
+		print>>output_final,"%s|road|planView|geometry|poly3|||||d|%f|"%(id_current,para_polyline[0])
+		# firstPtX=x[-1]
+		# firstPtY=f_polyline(firstPtX, *para_polyline)
+		start=end-1
+		end=start+pointsNb
+		if(start+4>size):
+			break
+		else:
+			if(end>size):
+				end=size
 
 		
 		#Use line model
 		# elif max(gap_line)<=max(gap_polyline) and max(gap_line)<=max(gap_circle):
-		elif max(gap_line)<=max(gap_polyline):
-			print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
-
-			linePointX.extend(x)
-			linePointY.extend(y)
-			polylineLength=(len(x)-1)*lengthUnit
-			cumulateLength=cumulateLength+polylineLength
-			hdg=getOrientation(tangentX[start],tangentY[start])
-			testX=np.array(x)
-			testY=testX*para_polyline[0]
-			plt.plot(testX,testY,'.')
-			#plt.show()
-			print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
-			print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
-			print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
-			print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
-			print>>output_final,"%s|road|planView|geometry|line|||||||"%id_current
-			# firstPtX=x[-1]
-			# firstPtY=f_line(firstPtX, *para_line)
-			start=end-1
-			end=start+pointsNb
-			if(start+4>size):
-				break
-			else:
-				if(end>size):
-					end=size
+		# elif max(gap_line)<=max(gap_polyline):
+		# 	print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
+		# 	print("line",x,y)
+		# 	linePointX.extend(x)
+		# 	linePointY.extend(y)
+		# 	polylineLength=(len(x)-1)*lengthUnit
+		# 	cumulateLength=cumulateLength+polylineLength
+		# 	hdg=getOrientation(tangentX[start],tangentY[start])
+		# 	testX=np.array(x)
+		# 	testY=testX*para_polyline[0]
+		# 	plt.plot(testX,testY,'.')
+		# 	#plt.show()
+		# 	print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
+		# 	print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
+		# 	print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
+		# 	print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
+		# 	# print>>output_final,"%s|road|planView|geometry|line|||||||"%id_current
+		# 	# firstPtX=x[-1]
+		# 	# firstPtY=f_line(firstPtX, *para_line)
+		# 	start=end-1
+		# 	end=start+pointsNb
+		# 	if(start+2>size):
+		# 		break
+		# 	else:
+		# 		if(end>size):
+		# 			end=size
 
 		##Use arc model
 		# elif max(gap_circle)<max(gap_line) and max(gap_circle)<max(gap_polyline):

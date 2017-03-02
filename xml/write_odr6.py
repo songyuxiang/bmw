@@ -12,10 +12,9 @@ import pandas as pd
 import fun_write_odr
 import copy
 
-
 # Start reading in the data
 path_in = "./"
-filename=raw_input("your csv file name : ")
+filename=raw_input("csv file name : ")
 input_fn = path_in + "/%s.csv"%filename
 
 path_out = path_in + "./"
@@ -181,17 +180,17 @@ for iroad, road_id in enumerate(num_road_segments):
             elif tags_now_string == "road_planView_geometry":
                 sh2 = ElementRoad.findall(a[1])
                 if len(sh2) == 0:
-                    sh2 = SubElement(ElementRoad, a[1])
-                    she = SubElement(sh2, element_now)
+                    sh2 = SubElement(ElementRoad, a[1]) # make planview
+                    she = SubElement(sh2, element_now)  # make geometry
                     she.set(attribute_now, value)
                 else:
-                    sh3 = sh2[len(sh2)-1].findall(a[2])
-                    sh_last = sh3[len(sh3) - 1]
-                    if len(sh_last.getchildren()) == 0:
+                    sh3 = sh2[len(sh2)-1].findall(a[2]) # find geometry
+                    sh_last = sh3[len(sh3) - 1] # get last geometry
+                    if ( len(sh_last.getchildren()) == 0 and len(sh_last.attrib) < 5 ):
                         sh_last.set(attribute_now, value)
                     else:
-                        p_element = ElementRoad.find(a[1])
-                        new_sh = SubElement(p_element, element_now)
+                        p_element = ElementRoad.find(a[1]) # find planview
+                        new_sh = SubElement(p_element, element_now) # make geometry
                         new_sh.set(attribute_now, value)
             elif tags_now_string == "road_lanes_laneOffset":
                 sh2 = ElementRoad.findall(a[1])
@@ -727,7 +726,7 @@ OpenDRIVE = fun_write_odr.sequence_signals(OpenDRIVE)
 OpenDRIVE = fun_write_odr.sequence_objects(OpenDRIVE)
 OpenDRIVE = fun_write_odr.post_fill_elevation(OpenDRIVE)
 OpenDRIVE = fun_write_odr.post_fill_elevationProfile(OpenDRIVE)
-
+OpenDRIVE = fun_write_odr.post_fill_geometry_line(OpenDRIVE)
 
 print "Run now pp_junction1.py to add junction"
 

@@ -16,12 +16,12 @@ id|Niv_1|Niv_2|Niv_3|Niv_4|Niv_5|Niv_6|Niv_7|Niv_8|attribute|valeur|
 3|road|planView|geometry||||||s|0.000000|
 3|road|planView|geometry||||||x|700357.738731|
 3|road|planView|geometry||||||y|4972903.879600|
-3|road|planView|geometry||||||hdg|2.350015|
+3|road|planView|geometry||||||hdg|2.350207|
 3|road|planView|geometry||||||length|27.000000|
 3|road|planView|geometry|poly3|||||a|0.000000|
 3|road|planView|geometry|poly3|||||b|0.000000|
-3|road|planView|geometry|poly3|||||c|-0.003339|
-3|road|planView|geometry|poly3|||||d|-0.000016|
+3|road|planView|geometry|poly3|||||c|0.001177|
+3|road|planView|geometry|poly3|||||d|-0.000002|
 3|road|lanes|laneSection||||||s|0.000000|
 3|road|lanes|laneSection||||||singleSide|false|
 3|road|lanes|laneSection|center|lane||||type|driving|
@@ -114,7 +114,7 @@ id|Niv_1|Niv_2|Niv_3|Niv_4|Niv_5|Niv_6|Niv_7|Niv_8|attribute|valeur|
 3|road|lanes|laneSection|right|lane|width|||sOffset|0.000000|
 3|road|lanes|laneSection|right|lane|width|||a|2.886268|
 3|road|lanes|laneSection|right|lane|width|||b|0.025655|
-3|road|lanes|laneSection|right|lane|width|||c|-0.000000|
+3|road|lanes|laneSection|right|lane|width|||c|-0.000001|
 3|road|lanes|laneSection|right|lane|width|||d|0.000001|
 3|road|lanes|laneSection|right|lane|roadMark|||sOffset|0.000000|
 3|road|lanes|laneSection|right|lane|roadMark|||type|solid|

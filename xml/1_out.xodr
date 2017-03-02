@@ -3,7 +3,7 @@
   <header date="2017-02-05T14:00:00" east="700368.657" name="geosatodr1.4" north="4972977.373" revMajor="1" revMinor="4" south="4972898.543" vendor="GEOSAT" version="1.00" west="700277.226">
     <geoReference>&lt;[CDATA[+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs]]&gt;</geoReference>
   </header>
-  <road id="1" junction="-1" length="26.800000" name="road1">
+  <road id="1" junction="-1" length="25.300000" name="road1">
     <link>
       <predecessor contactPoint="start" elementId="-1" elementType="road"/>
       <successor contactPoint="end" elementId="1" elementType="junction"/>
@@ -13,8 +13,11 @@
       <speed max="13" unit="m/s"/>
     </type>
     <planView>
-      <geometry hdg="2.301208" length="26.800000" s="0.000000" x="700303.353750" y="4972951.471250">
-        <poly3 a="0.000000" b="0.000000" c="0.002036" d="0.000170"/>
+      <geometry hdg="5.478753" length="19.400000" s="0.000000" x="700286.283393" y="4972970.116780">
+        <poly3 a="0.000000" b="0.000000" c="-0.005778" d="0.000143"/>
+      </geometry>
+      <geometry hdg="5.446573" length="5.900000" s="19.400000" x="700299.412042" y="4972955.854590">
+        <poly3 a="0.000000" b="0.000000" c="-0.001962" d="0.000028"/>
       </geometry>
     </planView>
     <elevationProfile>
@@ -118,7 +121,7 @@
               <predecessor id="1"/>
               <successor id="1"/>
             </link>
-            <width a="2.965303" b="0.007987" c="-0.001807" d="0.000049" sOffset="0.000000"/>
+            <width a="2.965303" b="0.007928" c="-0.001825" d="0.000059" sOffset="0.000000"/>
             <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
               <type>
                 <line/>
@@ -145,7 +148,7 @@
               <predecessor id="-1"/>
               <successor id="-1"/>
             </link>
-            <width a="3.042260" b="-0.013901" c="-0.001567" d="0.000343" sOffset="0.000000"/>
+            <width a="3.042260" b="-0.013449" c="-0.001768" d="0.000360" sOffset="0.000000"/>
             <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
               <type>
                 <line/>
@@ -161,7 +164,7 @@
               <predecessor id="1"/>
               <successor id="1"/>
             </link>
-            <width a="2.947503" b="-0.006346" c="0.010469" d="-0.003536" sOffset="0.000000"/>
+            <width a="2.949645" b="-0.004209" c="0.003000" d="-0.000700" sOffset="0.000000"/>
             <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
               <type>
                 <line/>
@@ -188,50 +191,7 @@
               <predecessor id="-1"/>
               <successor id="-1"/>
             </link>
-            <width a="2.988925" b="0.061475" c="0.112979" d="-0.014460" sOffset="0.000000"/>
-            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
-              <type>
-                <line/>
-              </type>
-            </roadMark>
-          </lane>
-        </right>
-      </laneSection>
-      <laneSection s="26.300000" singleSide="false">
-        <left>
-          <lane id="1" level="true" type="driving">
-            <link>
-              <predecessor id="1"/>
-              <successor id="1"/>
-            </link>
-            <width a="2.941821" b="-0.016821" c="-0.000001" d="0.000001" sOffset="0.000000"/>
-            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
-              <type>
-                <line/>
-              </type>
-            </roadMark>
-          </lane>
-        </left>
-        <center>
-          <lane id="0" level="true" type="driving">
-            <link>
-              <predecessor id="0"/>
-              <successor id="0"/>
-            </link>
-            <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
-              <type>
-                <line/>
-              </type>
-            </roadMark>
-          </lane>
-        </center>
-        <right>
-          <lane id="-1" level="true" type="driving">
-            <link>
-              <predecessor id="-1"/>
-              <successor id="-1"/>
-            </link>
-            <width a="3.622797" b="0.607609" c="0.095035" d="-0.099405" sOffset="0.000000"/>
+            <width a="2.988207" b="0.045019" c="0.126046" d="-0.010909" sOffset="0.000000"/>
             <roadMark color="standard" height="0.000000" laneChange="none" material="standard" sOffset="0.000000" type="solid" weight="standard" width="0.080000">
               <type>
                 <line/>
