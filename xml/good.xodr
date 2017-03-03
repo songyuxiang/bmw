@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<OpenDRIVE>
+  <header date="2017-02-05T14:00:00" east="700368.657" name="geosatodr1.4" north="4972977.373" revMajor="1" revMinor="4" south="4972898.543" vendor="GEOSAT" version="1.00" west="700277.226">
+    <geoReference>&lt;[CDATA[+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs]]&gt;</geoReference>
+  </header>
+  <road name="" length="1.6517824248160636e+01" id="500" junction="2">
+        <link>
+            <predecessor elementType="road" elementId="502" contactPoint="start" />
+            <successor elementType="road" elementId="514" contactPoint="start" />
+        </link>
+        <type s="0.0000000000000000e+00" type="town"/>
+        <planView>
+            <geometry s="0.0000000000000000e+00" x="-7.0710678117841717e+00" y="7.0710678119660715e+00" hdg="5.4977871437752235e+00" length="1.6517824248160636e+01">
+                <line/>
+            </geometry>
+        </planView>
+        <elevationProfile>
+            <elevation s="0.0000000000000000e+00" a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+        </elevationProfile>
+        <lateralProfile>
+        </lateralProfile>
+        <lanes>
+            <laneSection s="0.0000000000000000e+00">
+                <center>
+                    <lane id="0" type="driving" level= "0">
+                        <link>
+                        </link>
+                        <roadMark sOffset="0.0000000000000000e+00" type="none" weight="standard" color="standard" width="1.3000000000000000e-01"/>
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level= "0">
+                        <link>
+                            <predecessor id="1"/>
+                            <successor id="-1"/>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="3.7500000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <roadMark sOffset="0.0000000000000000e+00" type="solid" weight="standard" color="standard" width="1.3000000000000000e-01"/>
+                    </lane>
+                </right>
+            </laneSection>
+        </lanes>
+        <objects>
+        </objects>
+        <signals>
+        </signals>
+    </road>
+  <controller>
+    <control signalId="Signal1" type="1000001"/>
+  </controller>
+  <junction id="1" name="Junction1">
+    <connection connectingRoad="2" contactPoint="end" id="1" incomingRoad="1">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection connectingRoad="2" contactPoint="end" id="2" incomingRoad="4">
+      <laneLink from="2" to="1"/>
+    </connection>
+    <controller id="Signal1" sequence="1" type="1000001"/>
+    <connection connectingRoad="4" contactPoint="start" id="3" incomingRoad="2">
+      <laneLink from="-2" to="-1"/>
+    </connection>
+    <connection connectingRoad="3" contactPoint="end" id="4" incomingRoad="2">
+      <laneLink from="-2" to="1"/>
+    </connection>
+    <connection connectingRoad="1" contactPoint="start" id="5" incomingRoad="3">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection connectingRoad="3" contactPoint="end" id="6" incomingRoad="1">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection connectingRoad="3" contactPoint="end" id="7" incomingRoad="4">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection connectingRoad="4" contactPoint="start" id="8" incomingRoad="3">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection connectingRoad="1" contactPoint="start" id="9" incomingRoad="2">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection connectingRoad="1" contactPoint="start" id="10" incomingRoad="4">
+      <laneLink from="2" to="-1"/>
+    </connection>
+    <controller id="Signal1" sequence="1" type="1000001"/>
+    <connection connectingRoad="4" contactPoint="start" id="11" incomingRoad="1">
+      <laneLink from="1" to="-1"/>
+    </connection>
+    <connection connectingRoad="2" contactPoint="end" id="12" incomingRoad="3">
+      <laneLink from="-1" to="1"/>
+    </connection>
+  </junction>
+</OpenDRIVE>

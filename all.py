@@ -57,7 +57,7 @@ successsor_road_contactPt=getInput("successsor road contact point",typeList=["st
 
 
 
-output_final=open("./xml/%s.csv"%id_current,'w+')
+output_final=open("./xml/generator/%s.csv"%id_current,'w+')
 header="id|Niv_1|Niv_2|Niv_3|Niv_4|Niv_5|Niv_6|Niv_7|Niv_8|attribute|valeur|"
 
 print>>output_final,header
@@ -88,7 +88,7 @@ print>>output_final,"%s|road|type|||||||type|%s|"%(id_current,current_road_type)
 size=len(pointX)
 start=0
 pointsNb=500
-threshold=0.02
+threshold=0.01
 lengthUnit=0.1
 end=pointsNb
 polylinePointX=[]
@@ -112,7 +112,8 @@ while start<size:
 			para_polyline,gap_polyline=getPolylineModel(x,y)
 		# if(len(x)>3):
 		# 	para_circle,gap_circle=getCircleModel(x,y)
-		para_line,gap_line=getLineModel(x,y)
+		gap_line=getLineModel(x,y)
+
 		# if max(gap_polyline)>threshold and max(gap_circle)>threshold and max(gap_line)>threshold:
 		if max(gap_polyline)>threshold and max(gap_line)>threshold:
 			#print("out of threshold")
@@ -121,67 +122,55 @@ while start<size:
 
 		##Use polyline model
 		# if max(gap_polyline)<max(gap_circle) and max(gap_polyline)<max(gap_line):
-		# if max(gap_polyline)<max(gap_line):
-		print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
-		polylinePointX.extend(x)
-		polylinePointY.extend(y)
-		polylineLength=(len(x)-1)*lengthUnit
-		cumulateLength=cumulateLength+polylineLength
-		# hdg=getOrientation(tangentX[start],tangentY[start])
-		
-		# print(pointX[start],start)
-		# print(hdg)
-		# testX=np.array(x)
-		# testY=testX**3*para_polyline[0]+testX**2*para_polyline[1]
-		# plt.plot(testX,testY,'-')
-		#plt.show()
-		print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
-		print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
-		print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
-		print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
-		print>>output_final,"%s|road|planView|geometry|poly3|||||a|%f|"%(id_current,0)
-		print>>output_final,"%s|road|planView|geometry|poly3|||||b|%f|"%(id_current,0)
-		print>>output_final,"%s|road|planView|geometry|poly3|||||c|%f|"%(id_current,para_polyline[1])
-		print>>output_final,"%s|road|planView|geometry|poly3|||||d|%f|"%(id_current,para_polyline[0])
+
+		if max(gap_polyline)<max(gap_line):
+			print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
+			polylineLength=(len(x)-1)*lengthUnit
+			cumulateLength=cumulateLength+polylineLength
+			print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
+			print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
+			print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
+			print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
+			print>>output_final,"%s|road|planView|geometry|poly3|||||a|%f|"%(id_current,0)
+			print>>output_final,"%s|road|planView|geometry|poly3|||||b|%f|"%(id_current,0)
+			print>>output_final,"%s|road|planView|geometry|poly3|||||c|%f|"%(id_current,para_polyline[1])
+			print>>output_final,"%s|road|planView|geometry|poly3|||||d|%f|"%(id_current,para_polyline[0])
 		# firstPtX=x[-1]
 		# firstPtY=f_polyline(firstPtX, *para_polyline)
-		start=end-1
-		end=start+pointsNb
-		if(start+4>size):
-			break
-		else:
-			if(end>size):
-				end=size
+		# print(start,end,len(pointX))
+		# x_test,y_test=reverseRT(x[-1],x[-1]**2*para_polyline[1]+x[-1]**3*para_polyline[0],hdg,pointX[start],pointY[start])
+		# pointX[end-1],pointY[end-1]=x_test,y_test
+		# print(x_test,y_test,pointX[end-1],pointY[end-1])
+			start=end-1
+			end=start+pointsNb
+			if(start+4>size):
+				break
+			else:
+				if(end>size):
+					end=size
 
+		
 		
 		#Use line model
 		# elif max(gap_line)<=max(gap_polyline) and max(gap_line)<=max(gap_circle):
-		# elif max(gap_line)<=max(gap_polyline):
-		# 	print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
-		# 	print("line",x,y)
-		# 	linePointX.extend(x)
-		# 	linePointY.extend(y)
-		# 	polylineLength=(len(x)-1)*lengthUnit
-		# 	cumulateLength=cumulateLength+polylineLength
-		# 	hdg=getOrientation(tangentX[start],tangentY[start])
-		# 	testX=np.array(x)
-		# 	testY=testX*para_polyline[0]
-		# 	plt.plot(testX,testY,'.')
-		# 	#plt.show()
-		# 	print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
-		# 	print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
-		# 	print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
-		# 	print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
-		# 	# print>>output_final,"%s|road|planView|geometry|line|||||||"%id_current
-		# 	# firstPtX=x[-1]
-		# 	# firstPtY=f_line(firstPtX, *para_line)
-		# 	start=end-1
-		# 	end=start+pointsNb
-		# 	if(start+2>size):
-		# 		break
-		# 	else:
-		# 		if(end>size):
-		# 			end=size
+		elif max(gap_line)<=max(gap_polyline):
+			print>>output_final,"%s|road|planView|geometry||||||s|%f|"%(id_current,cumulateLength)
+			polylineLength=(len(x)-1)*lengthUnit
+			cumulateLength=cumulateLength+polylineLength
+			print>>output_final,"%s|road|planView|geometry||||||x|%f|"%(id_current,pointX[start])
+			print>>output_final,"%s|road|planView|geometry||||||y|%f|"%(id_current,pointY[start])
+			print>>output_final,"%s|road|planView|geometry||||||hdg|%f|"%(id_current,hdg)
+			print>>output_final,"%s|road|planView|geometry||||||length|%f|"%(id_current,polylineLength)
+			# print>>output_final,"%s|road|planView|geometry|line|||||||"%id_current
+			# firstPtX=x[-1]
+			# firstPtY=f_line(firstPtX, *para_line)
+			start=end-1
+			end=start+pointsNb
+			if(start+2>size):
+				break
+			else:
+				if(end>size):
+					end=size
 
 		##Use arc model
 		# elif max(gap_circle)<max(gap_line) and max(gap_circle)<max(gap_polyline):
@@ -488,40 +477,54 @@ for i in range(laneSectionNb):
 	# 			end=end-1
 	# 			continue
 
-objectNb=getInput("number of objects",valueType='i')
-for i in range(objectNb):
-	object_type=getInput("object type",typeList=["guiderails","road divider","sign gantries","reflector posts","emergency phones","traffic light","stop line","traffic islands","bicycle / pedestrian crossing","parking lot"])
+
+
+
+
+# objectNb=getInput("number of objects",valueType='i')
+# for i in range(objectNb):
+# 	object_type=getInput("object type",typeList=["guiderails","road divider","sign gantries","reflector posts","emergency phones","traffic light","stop line","traffic islands","bicycle / pedestrian crossing","parking lot"])
 	
-	print>>output_final,"%s|road|objects|object||||||type|%s|"%(id_current,object_type)
-	object_name=getInput("object name") 
-	print>>output_final,"%s|road|objects|object||||||name|%s|"%(id_current,object_name)
-	object_id=getInput("object id ",valueType="i") 
-	print>>output_final,"%s|road|objects|object||||||id|%d|"%(id_current,object_id)
-	object_s=getInput("s of object",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||s|%f|"%(id_current,object_s)
-	object_t=getInput("t of object",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||t|%f|"%(id_current,object_t)
-	object_zOffset=getInput("Zoffset of object",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||zOffset|%f|"%(id_current,object_zOffset)
-	object_validLength=getInput("object's validLength",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||validLength|%f|"%(id_current,object_validLength)
-	object_orientation=getInput("object's orientation",typeList=["+","-","none"])
-	print>>output_final,"%s|road|objects|object||||||orientation|%s|"%(id_current,object_orientation)
-	object_length=getInput("object's length",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||length|%f|"%(id_current,object_length)
-	object_width=getInput("object's width",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||width|%f|"%(id_current,object_width)
-	object_radius=getInput("object's radius",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||radius|%f|"%(id_current,object_radius)
-	object_height=getInput("object's height",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||height|%f|"%(id_current,object_height)
-	object_hdg=getInput("object's hdg",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||hdg|%f|"%(id_current,object_hdg)
-	object_pitch=getInput("object's pitch",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||pitch|%f|"%(id_current,object_pitch)
-	object_roll=getInput("object's roll",valueType='f')
-	print>>output_final,"%s|road|objects|object||||||roll|%f|"%(id_current,object_roll)
+# 	print>>output_final,"%s|road|objects|object||||||type|%s|"%(id_current,object_type)
+# 	object_name=getInput("object name") 
+# 	print>>output_final,"%s|road|objects|object||||||name|%s|"%(id_current,object_name)
+# 	object_id=getInput("object id ",valueType="i") 
+# 	print>>output_final,"%s|road|objects|object||||||id|%d|"%(id_current,object_id)
+# 	object_s=getInput("s of object",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||s|%f|"%(id_current,object_s)
+# 	object_t=getInput("t of object",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||t|%f|"%(id_current,object_t)
+# 	object_zOffset=getInput("Zoffset of object",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||zOffset|%f|"%(id_current,object_zOffset)
+# 	object_validLength=getInput("object's validLength",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||validLength|%f|"%(id_current,object_validLength)
+# 	object_orientation=getInput("object's orientation",typeList=["+","-","none"])
+# 	print>>output_final,"%s|road|objects|object||||||orientation|%s|"%(id_current,object_orientation)
+# 	object_length=getInput("object's length",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||length|%f|"%(id_current,object_length)
+# 	object_width=getInput("object's width",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||width|%f|"%(id_current,object_width)
+# 	object_radius=getInput("object's radius",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||radius|%f|"%(id_current,object_radius)
+# 	object_height=getInput("object's height",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||height|%f|"%(id_current,object_height)
+# 	object_hdg=getInput("object's hdg",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||hdg|%f|"%(id_current,object_hdg)
+# 	object_pitch=getInput("object's pitch",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||pitch|%f|"%(id_current,object_pitch)
+# 	object_roll=getInput("object's roll",valueType='f')
+# 	print>>output_final,"%s|road|objects|object||||||roll|%f|"%(id_current,object_roll)
 # ## no repeat/outline/material/validity/parkingspace/
+
+
+
+
+
+
+
+
+
+
 # hasTunnel=raw_input("is there tunnel?(y/n):") or "y"
 # if hasTunnel=="y":
 # 	tunnel_name=raw_input("tunnel name : ") or "test tunnel"
@@ -566,48 +569,57 @@ for i in range(objectNb):
 # 	else:
 # 		bridge_type="brick"
 # 	print>>output_final,"%s|road|objects|bridge||||||type|%s|"%(id_current,bridge_type)
-hasSignal=getInput("is there signal",typeList=["yes","no"])
-while hasSignal=="yes":
-	signal_name=getInput("signal name")
-	print>>output_final,"%s|road|signals|signal||||||name|%s|"%(id_current,signal_name)
-	signal_s=getInput("signal's s",valueType="f") 
-	print>>output_final,"%s|road|signals|signal||||||s|%f|"%(id_current,signal_s)
-	signal_t=getInput("signal's t",valueType="f") 
-	print>>output_final,"%s|road|signals|signal||||||t|%f|"%(id_current,signal_t)
-	signal_id=getInput("signal id")
-	print>>output_final,"%s|road|signals|signal||||||id|%s|"%(id_current,signal_id)
-	signal_dynamic=getInput("bridge dynamic",typeList=["yes","no"])
 
-	print>>output_final,"%s|road|signals|signal||||||dynamic|%s|"%(id_current,signal_dynamic)
-	signal_orientation=getInput("bridge orientation",typeList=["+","-"])
 
-	print>>output_final,"%s|road|signals|signal||||||orientation|%s|"%(id_current,signal_orientation)
-	signal_zOffset=getInput("signal zOffset",valueType="f")
-	print>>output_final,"%s|road|signals|signal||||||zOffset|%f|"%(id_current,signal_zOffset)
-	signal_country=getInput("country")
-	print>>output_final,"%s|road|signals|signal||||||country|%s|"%(id_current,signal_country)
-	signal_type=getInput("signal type")
-	print>>output_final,"%s|road|signals|signal||||||type|%s|"%(id_current,signal_type)
-	signal_subtype=getInput("signal subtype")
-	print>>output_final,"%s|road|signals|signal||||||subtype|%s|"%(id_current,signal_subtype)
-	signal_value=getInput("signal value",valueType='f')
-	print>>output_final,"%s|road|signals|signal||||||value|%f|"%(id_current,signal_value)
-	signal_unit=getInput("unit",typeList=["m","km","ft","mile","m/s","km/h","kg","t","%"])
-	print>>output_final,"%s|road|signals|signal||||||unit|%s|"%(id_current,signal_unit)
-	signal_height=getInput("signal height",valueType="f")
-	print>>output_final,"%s|road|signals|signal||||||height|%s|"%(id_current,signal_height)
-	signal_width=getInput("signal width",valueType="f")
-	print>>output_final,"%s|road|signals|signal||||||width|%s|"%(id_current,signal_width)
 
-	signal_hOffset=getInput("signal hOffset",valueType="f")
-	print>>output_final,"%s|road|signals|signal||||||hOffset|%s|"%(id_current,signal_hOffset)
-	signal_pitch=getInput("signal pitch",valueType="f")
-	print>>output_final,"%s|road|signals|signal||||||pitch|%s|"%(id_current,signal_pitch)
-	signal_roll=getInput("signal roll",valueType="f")
-	print>>output_final,"%s|road|signals|signal||||||roll|%s|"%(id_current,signal_roll)
 
-	signal_text=getInput("text")
-	print>>output_final,"%s|road|signals|signal||||||text|%s|"%(id_current,signal_text)
-	hasSignal=getInput("is there signal?",typeList=["yes","no"])
-file.close()
-output_final.close()
+
+
+
+
+
+# hasSignal=getInput("is there signal",typeList=["yes","no"])
+# while hasSignal=="yes":
+# 	signal_name=getInput("signal name")
+# 	print>>output_final,"%s|road|signals|signal||||||name|%s|"%(id_current,signal_name)
+# 	signal_s=getInput("signal's s",valueType="f") 
+# 	print>>output_final,"%s|road|signals|signal||||||s|%f|"%(id_current,signal_s)
+# 	signal_t=getInput("signal's t",valueType="f") 
+# 	print>>output_final,"%s|road|signals|signal||||||t|%f|"%(id_current,signal_t)
+# 	signal_id=getInput("signal id")
+# 	print>>output_final,"%s|road|signals|signal||||||id|%s|"%(id_current,signal_id)
+# 	signal_dynamic=getInput("bridge dynamic",typeList=["yes","no"])
+
+# 	print>>output_final,"%s|road|signals|signal||||||dynamic|%s|"%(id_current,signal_dynamic)
+# 	signal_orientation=getInput("bridge orientation",typeList=["+","-"])
+
+# 	print>>output_final,"%s|road|signals|signal||||||orientation|%s|"%(id_current,signal_orientation)
+# 	signal_zOffset=getInput("signal zOffset",valueType="f")
+# 	print>>output_final,"%s|road|signals|signal||||||zOffset|%f|"%(id_current,signal_zOffset)
+# 	signal_country=getInput("country")
+# 	print>>output_final,"%s|road|signals|signal||||||country|%s|"%(id_current,signal_country)
+# 	signal_type=getInput("signal type")
+# 	print>>output_final,"%s|road|signals|signal||||||type|%s|"%(id_current,signal_type)
+# 	signal_subtype=getInput("signal subtype")
+# 	print>>output_final,"%s|road|signals|signal||||||subtype|%s|"%(id_current,signal_subtype)
+# 	signal_value=getInput("signal value",valueType='f')
+# 	print>>output_final,"%s|road|signals|signal||||||value|%f|"%(id_current,signal_value)
+# 	signal_unit=getInput("unit",typeList=["m","km","ft","mile","m/s","km/h","kg","t","%"])
+# 	print>>output_final,"%s|road|signals|signal||||||unit|%s|"%(id_current,signal_unit)
+# 	signal_height=getInput("signal height",valueType="f")
+# 	print>>output_final,"%s|road|signals|signal||||||height|%s|"%(id_current,signal_height)
+# 	signal_width=getInput("signal width",valueType="f")
+# 	print>>output_final,"%s|road|signals|signal||||||width|%s|"%(id_current,signal_width)
+
+# 	signal_hOffset=getInput("signal hOffset",valueType="f")
+# 	print>>output_final,"%s|road|signals|signal||||||hOffset|%s|"%(id_current,signal_hOffset)
+# 	signal_pitch=getInput("signal pitch",valueType="f")
+# 	print>>output_final,"%s|road|signals|signal||||||pitch|%s|"%(id_current,signal_pitch)
+# 	signal_roll=getInput("signal roll",valueType="f")
+# 	print>>output_final,"%s|road|signals|signal||||||roll|%s|"%(id_current,signal_roll)
+
+# 	signal_text=getInput("text")
+# 	print>>output_final,"%s|road|signals|signal||||||text|%s|"%(id_current,signal_text)
+# 	hasSignal=getInput("is there signal?",typeList=["yes","no"])
+# file.close()
+# output_final.close()

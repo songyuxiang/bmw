@@ -1,0 +1,8 @@
+#!/bin/bash
+
+outfile="junction1.csv"
+
+filedir="./../"
+rm $filedir/$outfile
+awk 'FNR==1 && NR!=1{next;}{print}' *.csv > $filedir/$outfile
+

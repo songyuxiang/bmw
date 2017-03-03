@@ -11,10 +11,10 @@ import glob
 import pandas as pd
 import fun_write_odr
 import copy
-
+from pp_junction1 import *
 # Start reading in the data
 path_in = "./"
-filename=raw_input("csv file name : ")
+filename=raw_input("csv file name : ") or "junction1"
 input_fn = path_in + "/%s.csv"%filename
 
 path_out = path_in + "./"
@@ -728,6 +728,16 @@ OpenDRIVE = fun_write_odr.post_fill_elevation(OpenDRIVE)
 OpenDRIVE = fun_write_odr.post_fill_elevationProfile(OpenDRIVE)
 OpenDRIVE = fun_write_odr.post_fill_geometry_line(OpenDRIVE)
 
+def snip_roadMarks(OpenDRIVE):
+    for RoadElement in OpenDRIVE.findall('./road[@id]'):
+        road_id = RoadElement.attrib['id']
+        if road_id ==1002 or road_id==1003:
+            sh_ln = RoadElement.findall("./lanes/laneSection/right/*[@id='-1']")
+            she = RoadElement.findall("./lanes/laneSection/right/*[@id='-1']/roadMark")
+            for she_id in range(0, len(she)):
+                sh_ln[she_id].remove(she[she_id])
+    return OpenDRIVE
+# OpenDRIVE=snip_roadMarks(OpenDRIVE)
 print "Run now pp_junction1.py to add junction"
-
+OpenDRIVE = pp_junction1(OpenDRIVE)
 fun_write_odr.write_odr_to_xml(OpenDRIVE, output_fn)

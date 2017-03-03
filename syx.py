@@ -72,14 +72,8 @@ def getCircleModel(x,y):
 	# gap=np.sqrt((x-xc_2)**2+(y-yc_2)**2)-R_2
 	return p1,gap
 def getLineModel(x,y):
-	# sigma =np.ones(len(x))
-	# sigma[[0, -1]] = 0.00001
-	# p_line, pcov = optimize.curve_fit(f_line, x, y, (0), sigma=sigma)
-	z_polyline = np.polyfit(x, y, 1)
-	p_polyline=np.poly1d(z_polyline)
-	# gap_line=np.abs(y-f_line(x, *p_line))
-	gap_line=np.abs(p_polyline(x)-y)
-	return p_polyline,gap_line
+	gap_line=np.abs(y)
+	return gap_line
 def getOrientation(x,y):
 	orientation=10000
 
@@ -133,6 +127,10 @@ def rotateAndTranslate(x_list,y_list,angle=0,x0=0,y0=0):
 			# x_t.append(x_list[i]*np.cos(angle)-y_list[i]*np.sin(angle)+x0*(1-np.cos(angle)+y0*np.sin(angle)))
 			# y_t.append(x_list[i]*np.sin(angle)+y_list[i]*np.cos(angle)-y0*(1-np.cos(angle)-x0*np.sin(angle)))
 	return x_t,y_t
+def reverseRT(x,y,angle,x0,y0):
+	x1=x*np.cos(angle)-y*np.sin(angle)+x0
+	y1=x*np.sin(angle)+y*np.cos(angle)+y0
+	return x1,y1
 def getArcSign(tanX,tanY,centerX,centerY):
 	oriTan=getOrientation(tanX,tanY)
 	oriCenter=getOrientation(centerX,centerY)
